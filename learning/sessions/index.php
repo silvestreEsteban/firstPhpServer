@@ -12,15 +12,29 @@ session_start();
 </head>
 
 <body>
-    This is the login page <br>
-    <a href="home.php">This goes to the home page</a> <br>
+    <form action="index.php" method="post">
+        <label>username:</label>
+        <input type="text" name="username"><br><br>
+        <label>password:</label>
+        <input type="password" name="password">
+        <input type="submit" value="login" name="login">
+    </form>
 </body>
 
 </html>
 <?php
-$_SESSION["username"] = "JohnDoe";
-$_SESSION["password"] = "password123";
+if (isset($_POST["login"])) {
 
-echo $_SESSION["username"] . "<br>";
-echo $_SESSION["password"] . "<br>";
+    $_SESSION["username"] = $_POST["username"];
+    $_SESSION["password"] = $_POST["password"];
+
+    header("Location: home.php"); // directs to designated page
+
+    if (!empty($_POST["username"] && !empty($_POST["password"]))) {
+        echo "Username: " . $_SESSION["username"] . "<br>";
+        echo "Password: " . $_SESSION["password"] . "<br>";
+    } else {
+        echo "Please fill in all fields";
+    }
+}
 ?>
